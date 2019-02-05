@@ -4,7 +4,7 @@ from datetime import datetime
 
 app= Flask(__name__)
 messages = []
-app.secret_key = "randomstring123"
+app.secret_key = os.getenv("SECRET", "randomstring123")
 
 def add_message(username, message):
     """Takes our username and message and appends it to the list"""
@@ -34,4 +34,4 @@ def user(username):
     return render_template("chat.html", username=username, chat_messages=messages)
     
     
-app.run(host= os.getenv('IP'), port= int(os.getenv('PORT')), debug= True)
+app.run(host= os.getenv('IP', "0.0.0.0"), port= int(os.getenv('PORT', "5000")), debug=False)
